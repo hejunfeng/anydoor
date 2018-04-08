@@ -1,0 +1,23 @@
+{
+  "name": "anydoor",
+  "version": "1.0.0",
+  "description": "Tiny NodeJS Static Web Server",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hejunfeng/anydoor.git"
+  },
+  "author": "kaka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hejunfeng/anydoor/issues"
+  },
+  "homepage": "https://github.com/hejunfeng/anydoor#readme",
+  "dependencies": {
+    "@types/node": "^9.6.2",
+    "chalk": "^2.3.2"
+  }
+}
