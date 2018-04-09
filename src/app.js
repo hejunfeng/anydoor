@@ -6,6 +6,7 @@ const promisify = require('util').promisify;
 const stat = promisify(fs.stat);
 const readdir = promisify(fs.readdir);
 const conf = require('./config/defaultConfig');
+const route = require('./helper/route');
 
 const server = http.createServer((req, res)=>{
 	const filePath = path.join(conf.root,req.url);
@@ -18,14 +19,15 @@ const server = http.createServer((req, res)=>{
 			}else if(stats.isDirectory()){
 				readdir(filePath).then((files)=>{
 					res.statusCode =200;
-					res.setHeader('Content-Type','text/plain');
-					res.end(files.join(','));
+					res.setHeader('Content-Type','text/html');
+					const data = {
+						title: path.basename(filePath),
+						dir:path.relative(conf.root,filePath),
+						files
+					};
+					res.end(route.tpltemplate(data));
 				});
 			}
-		}).catch(err=>{
-			res.statusCode = 404;
-			res.setHeader('Content-Type','text/plain');
-			res.end(err.statusCode);
 		});
 	} 
 	catch(ex){
