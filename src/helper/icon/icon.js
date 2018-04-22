@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const iconPath = path.join(__dirname, '/icons');
 var readDir = fs.readdirSync(iconPath);
-console.log(readDir);
+// console.log(readDir);
 
 
 module.exports = (fileName)=>{

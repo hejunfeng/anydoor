@@ -7,6 +7,7 @@ const path = require('path');
 const config = require('../config/defaultConfig');
 const mime = require('../helper/mime')
 const icon = require('../helper/icon/icon');
+const compress =require('../helper/comress');
 
 
 const tplPath = path.join(__dirname, '../template/dir.html');
@@ -20,7 +21,11 @@ module.exports = async function(req,res,filePath){
 			const contentType = mime(filePath);
 			res.statusCode=200;
 			res.setHeader('Content-Type',contentType);
-			fs.createReadStream(filePath).pipe(res);
+			let rs = fs.createReadStream(filePath);
+			if(filePath.match(config.compress)){
+				rs = compress(rs,req,res);
+			}
+			rs.pipe(res);
 		}else if(stats.isDirectory()){
 			const files = await readdir(filePath);
 			res.statusCode=200;
