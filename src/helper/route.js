@@ -6,6 +6,7 @@ const Handlebars = require('handlebars');
 const path = require('path');
 const config = require('../config/defaultConfig');
 const mime = require('../helper/mime')
+const icon = require('../helper/icon/icon');
 
 
 const tplPath = path.join(__dirname, '../template/dir.html');
@@ -34,7 +35,11 @@ module.exports = async function(req,res,filePath){
 			const data = {
 				title: path.basename(filePath),
 				dir: dir,
-				files
+				files : files.map(file=>{
+					return {
+						file
+					}
+				})
 			};
 			res.end(template(data));
 		}
